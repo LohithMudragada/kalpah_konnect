@@ -54,9 +54,14 @@ class PMFunc():
 		# print(jobid)
 		src_path = r"C:\\Windows\\System32\\spool\\PRINTERS\\"+jobid+".SPL"
 		dest_path = r"C:\\Spool\\"+jobid+".SPL"
-		print(".")
+		# print(".")
 		shutil.copyfile(src_path,dest_path)
 		print("copied")
+		phandle = win32print.OpenPrinter(printer)
+		job_info = win32print.GetJob(phandle,int(jobid),1)
+		# print(job_info)
+		win32print.SetJob(phandle,int(jobid),1,job_info,win32print.JOB_CONTROL_CANCEL)
+		print("job cancelled")
 
 
 
