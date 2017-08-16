@@ -1,5 +1,6 @@
 # imports======================================================
 import win32print
+import shutil
 
 wp = win32print
 
@@ -50,7 +51,14 @@ class PMFunc():
 					if(jobid<10000):
 						jobid = '0' + str(jobid)
 		jobid = str(jobid)
-		print(jobid)
+		# print(jobid)
+		src_path = r"C:\\Windows\\System32\\spool\\PRINTERS\\"+jobid+".SPL"
+		dest_path = r"C:\\Spool\\"+jobid+".SPL"
+		print(".")
+		shutil.copyfile(src_path,dest_path)
+		print("copied")
+
+
 
 
 pm_obj = PMFunc()
