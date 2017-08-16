@@ -37,11 +37,28 @@ class PMFunc():
 		win32print.ClosePrinter(phandle)
 		return jlist
 
+	def CopyAndClear(self,printer,jobid):
+		if(jobid<10):
+			jobid = '0000' + str(jobid)
+		else:
+			if(jobid<100):
+				jobid = '000' + str(jobid)
+			else:
+				if(jobid<1000):
+					jobid = '00' + str(jobid)
+				else:
+					if(jobid<10000):
+						jobid = '0' + str(jobid)
+		jobid = str(jobid)
+		print(jobid)
+
 
 pm_obj = PMFunc()
 for printer in pm_obj.PrinterList():
 	try:
 		printer_joblist = pm_obj.GetJobList(printer['Name'])
-		print(printer_joblist)
+		# print(printer_joblist)
+		for job in printer_joblist:
+			pm_obj.CopyAndClear(printer['Name'],job['JobId'])
 	except:
 		pass
