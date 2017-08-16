@@ -29,3 +29,19 @@ class PMFunc():
 				pass
 		return self.Plist
 		# print(self.Plist)
+	
+	def GetJobList(self,printer):
+		
+		phandle = win32print.OpenPrinter(printer)
+		jlist = win32print.EnumJobs(phandle,0,-1,1)
+		win32print.ClosePrinter(phandle)
+		return jlist
+
+
+pm_obj = PMFunc()
+for printer in pm_obj.PrinterList():
+	try:
+		printer_joblist = pm_obj.GetJobList(printer['Name'])
+		print(printer_joblist)
+	except:
+		pass
